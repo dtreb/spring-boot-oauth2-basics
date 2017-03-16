@@ -1,6 +1,6 @@
-#Spring (Boot, Data, Security) with OAuth2 implementation.
+# Spring (Boot, Data, Security) with OAuth2 implementation.
 
-###Info
+### Info
 This is a very simple project that demonstrates usage of:
 
  1. [Spring Boot](https://projects.spring.io/spring-boot/) for project setup.
@@ -9,7 +9,7 @@ This is a very simple project that demonstrates usage of:
  4. Basic security tests with [Mockito](http://mockito.org/).
  5. [H2](http://www.h2database.com/html/main.html) as temporary storage.   
 
-###Setup:
+### Setup:
 
  1. Adjust config at [mail.properties](./src/main/resources/mail.properties) with your mail credentials.   
  2. Adjust other settings at [application.properties](./src/main/resources/application.properties) if needed.
