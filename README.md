@@ -8,7 +8,8 @@ This is a very simple project that demonstrates usage of:
  3. [Swagger2](http://swagger.io/) for API description.
  4. Basic security tests with [Mockito](http://mockito.org/).
  5. [H2](http://www.h2database.com/html/main.html) as temporary storage. 
- 6. [metrics-spring](https://github.com/ryantenney/metrics-spring) for controller endpoints metrics.  
+ 6. [HikariCP](https://brettwooldridge.github.io/HikariCP/) as connection pool implementation.  
+ 7. [metrics-spring](https://github.com/ryantenney/metrics-spring) for endpoints, pool, memory and other metrics.  
 
 ### Setup:
 

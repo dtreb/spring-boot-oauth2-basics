@@ -8,12 +8,14 @@ import com.codahale.metrics.jvm.MemoryUsageGaugeSet;
 import com.codahale.metrics.servlets.MetricsServlet;
 import com.ryantenney.metrics.spring.config.annotation.EnableMetrics;
 import com.ryantenney.metrics.spring.config.annotation.MetricsConfigurerAdapter;
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
+import javax.sql.DataSource;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -30,6 +32,9 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter {
 
     @Autowired
     private HealthCheckRegistry healthCheckRegistry;
+
+    @Autowired
+    private DataSource dataSource;
 
     @PostConstruct
     public void init() {
@@ -50,6 +55,9 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter {
     public void configureReporters(MetricRegistry metricRegistry) {
         metricRegistry.register("memory", new MemoryUsageGaugeSet());
         metricRegistry.register("threads", new CachedThreadStatesGaugeSet(10, TimeUnit.SECONDS));
+        if(dataSource instanceof HikariDataSource) {
+            ((HikariDataSource) dataSource).setMetricRegistry(metricRegistry);
+        }
         registerReporter(JmxReporter.forRegistry(metricRegistry).build()).start();
     }
 }
