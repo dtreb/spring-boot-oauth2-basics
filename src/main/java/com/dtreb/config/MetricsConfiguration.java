@@ -4,7 +4,6 @@ import com.codahale.metrics.JmxReporter;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.health.HealthCheckRegistry;
 import com.codahale.metrics.servlets.AdminServlet;
-import com.codahale.metrics.servlets.MetricsServlet;
 import com.ryantenney.metrics.spring.config.annotation.EnableMetrics;
 import com.ryantenney.metrics.spring.config.annotation.MetricsConfigurerAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,19 +25,22 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter {
     @Autowired
     private MetricRegistry metricRegistry;
 
+    @Autowired
+    private HealthCheckRegistry healthCheckRegistry;
+
     @PostConstruct
     public void init() {
         configureReporters(metricRegistry);
     }
 
     @Bean
-    public MetricsServletContextListener metricsServletContextListener(MetricRegistry metricRegistry) {
-        return new MetricsServletContextListener(metricRegistry);
+    public MetricsServletContextListener metricsServletContextListener(MetricRegistry metricRegistry, HealthCheckRegistry healthCheckRegistry) {
+        return new MetricsServletContextListener(metricRegistry, healthCheckRegistry);
     }
 
     @Bean
     public ServletRegistrationBean servletRegistrationBean(){
-        return new ServletRegistrationBean(new MetricsServlet(),"/metrics/*");
+        return new ServletRegistrationBean(new AdminServlet(),"/metrics/*");
     }
 
     @Override
