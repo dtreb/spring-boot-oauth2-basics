@@ -1,6 +1,6 @@
 package com.dtreb.controller;
 
-import com.codahale.metrics.annotation.Timed;
+import com.codahale.metrics.annotation.Metered;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PingController {
 
     @RequestMapping
-    @Timed
+    @Metered
     public String ping() {
         return "pong";
     }
