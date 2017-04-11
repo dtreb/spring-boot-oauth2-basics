@@ -17,7 +17,7 @@ This is a very simple project that demonstrates usage of:
  2. Run application via
     ```$ mvn spring-boot:run```
  3. Then browse to: [http://localhost:8888/ping](http://localhost:8888/ping)   
- 4. [Optional] Check [http://localhost:8888/metrics](http://localhost:8888/metrics) for endpoints metrics.  
+ 4. [Optional] Check [http://localhost:8888/metrics?pretty=true](http://localhost:8888/metrics?pretty=true) for endpoints metrics.  
 
 #### API
 > **Note:**  

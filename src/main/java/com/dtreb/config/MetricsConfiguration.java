@@ -3,7 +3,9 @@ package com.dtreb.config;
 import com.codahale.metrics.JmxReporter;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.health.HealthCheckRegistry;
-import com.codahale.metrics.servlets.AdminServlet;
+import com.codahale.metrics.jvm.CachedThreadStatesGaugeSet;
+import com.codahale.metrics.jvm.MemoryUsageGaugeSet;
+import com.codahale.metrics.servlets.MetricsServlet;
 import com.ryantenney.metrics.spring.config.annotation.EnableMetrics;
 import com.ryantenney.metrics.spring.config.annotation.MetricsConfigurerAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Dropwizard Metrics library integration configuration.
@@ -40,11 +43,13 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter {
 
     @Bean
     public ServletRegistrationBean servletRegistrationBean(){
-        return new ServletRegistrationBean(new AdminServlet(),"/metrics/*");
+        return new ServletRegistrationBean(new MetricsServlet(),"/metrics/*");
     }
 
     @Override
     public void configureReporters(MetricRegistry metricRegistry) {
+        metricRegistry.register("memory", new MemoryUsageGaugeSet());
+        metricRegistry.register("threads", new CachedThreadStatesGaugeSet(10, TimeUnit.SECONDS));
         registerReporter(JmxReporter.forRegistry(metricRegistry).build()).start();
     }
 }
