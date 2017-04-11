@@ -7,7 +7,8 @@ This is a very simple project that demonstrates usage of:
  2. [Simple Java Mail](https://github.com/bbottema/simple-java-mail) for emailing.
  3. [Swagger2](http://swagger.io/) for API description.
  4. Basic security tests with [Mockito](http://mockito.org/).
- 5. [H2](http://www.h2database.com/html/main.html) as temporary storage.   
+ 5. [H2](http://www.h2database.com/html/main.html) as temporary storage. 
+ 6. [metrics-spring](https://github.com/ryantenney/metrics-spring) for controller endpoints metrics.  
 
 ### Setup:
 
